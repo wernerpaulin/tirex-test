@@ -8,85 +8,10 @@
         "env": []
     },
     {
-        "id": "f96a1b182f622135",
-        "type": "ui-base",
-        "name": "My Dashboard",
-        "path": "/dashboard",
-        "appIcon": "",
-        "includeClientData": true,
-        "acceptsClientConfig": [
-            "ui-notification",
-            "ui-control"
-        ],
-        "showPathInSidebar": false,
-        "headerContent": "page",
-        "navigationStyle": "default",
-        "titleBarStyle": "default",
-        "showReconnectNotification": true,
-        "notificationDisplayTime": 1,
-        "showDisconnectNotification": true,
-        "allowInstall": false
-    },
-    {
-        "id": "ba848e2a4fdc2e46",
-        "type": "ui-theme",
-        "name": "Default Theme",
-        "colors": {
-            "surface": "#ffffff",
-            "primary": "#0094CE",
-            "bgPage": "#eeeeee",
-            "groupBg": "#ffffff",
-            "groupOutline": "#cccccc"
-        },
-        "sizes": {
-            "density": "default",
-            "pagePadding": "12px",
-            "groupGap": "12px",
-            "groupBorderRadius": "4px",
-            "widgetGap": "12px"
-        }
-    },
-    {
-        "id": "339abb1d1c5e7bcd",
-        "type": "ui-page",
-        "name": "Page 1",
-        "ui": "f96a1b182f622135",
-        "path": "/page1",
-        "icon": "home",
-        "layout": "grid",
-        "theme": "ba848e2a4fdc2e46",
-        "breakpoints": [
-            {
-                "name": "Default",
-                "px": 0,
-                "cols": 3
-            },
-            {
-                "name": "Tablet",
-                "px": 576,
-                "cols": 6
-            },
-            {
-                "name": "Small Desktop",
-                "px": 768,
-                "cols": 9
-            },
-            {
-                "name": "Desktop",
-                "px": 1024,
-                "cols": 12
-            }
-        ],
-        "order": 1,
-        "className": "",
-        "visible": "true",
-        "disabled": "false"
-    },
-    {
         "id": "e51b567d9b9f5836",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "localhost",
+        "broker": "mosquitto.tirex-test",
         "port": 1883,
         "clientid": "",
         "autoConnect": true,
@@ -172,8 +97,29 @@
         "correl": "",
         "expiry": "",
         "broker": "e51b567d9b9f5836",
-        "x": 450,
-        "y": 220,
+        "x": 490,
+        "y": 160,
         "wires": []
+    },
+    {
+        "id": "f41ed6a0653f0976",
+        "type": "mqtt in",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e51b567d9b9f5836",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "440de7626385e463"
+            ]
+        ]
     }
 ]

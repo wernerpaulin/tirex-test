@@ -1,12 +1,12 @@
+version: '3'
 name: TiRex-Test
 services:
   mosquitto:
     image: eclipse-mosquitto:latest
-    container_name: mosquitto
+    container_name: mosquitto.tirex-test
     restart: unless-stopped
     ports:
-      - "1883:1883"   # MQTT
-      - "9001:9001"   # WebSocket
+      - "1883:1883"
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
       - ./mosquitto/data:/mosquitto/data
@@ -14,7 +14,7 @@ services:
 
   nodered:
     image: nodered/node-red:latest
-    container_name: nodered
+    container_name: nodered.tirex-test
     restart: unless-stopped
     ports:
       - "1880:1880"
@@ -23,4 +23,4 @@ services:
     volumes:
       - ./nodered/data:/data
     depends_on:
-      - mosquitto      
+      - mosquitto

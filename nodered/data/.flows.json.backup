@@ -8,37 +8,6 @@
         "env": []
     },
     {
-        "id": "43cfc153568d963d",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "localhost",
-        "port": 1883,
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": false,
-        "protocolVersion": "4",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
         "id": "f96a1b182f622135",
         "type": "ui-base",
         "name": "My Dashboard",
@@ -78,40 +47,35 @@
         }
     },
     {
-        "id": "339abb1d1c5e7bcd",
-        "type": "ui-page",
-        "name": "Page 1",
-        "ui": "f96a1b182f622135",
-        "path": "/page1",
-        "icon": "home",
-        "layout": "grid",
-        "theme": "ba848e2a4fdc2e46",
-        "breakpoints": [
-            {
-                "name": "Default",
-                "px": 0,
-                "cols": 3
-            },
-            {
-                "name": "Tablet",
-                "px": 576,
-                "cols": 6
-            },
-            {
-                "name": "Small Desktop",
-                "px": 768,
-                "cols": 9
-            },
-            {
-                "name": "Desktop",
-                "px": 1024,
-                "cols": 12
-            }
-        ],
-        "order": 1,
-        "className": "",
-        "visible": "true",
-        "disabled": "false"
+        "id": "e51b567d9b9f5836",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto.tirex-test",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
     },
     {
         "id": "7470705302c36e10",
@@ -137,7 +101,9 @@
         "x": 220,
         "y": 160,
         "wires": [
-            []
+            [
+                "a950ed3648b53947"
+            ]
         ]
     },
     {
@@ -155,5 +121,44 @@
         "x": 840,
         "y": 200,
         "wires": []
+    },
+    {
+        "id": "a950ed3648b53947",
+        "type": "mqtt out",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "topic": "test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e51b567d9b9f5836",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f41ed6a0653f0976",
+        "type": "mqtt in",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e51b567d9b9f5836",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "440de7626385e463"
+            ]
+        ]
     }
 ]
