@@ -1,3 +1,4 @@
+name: TiRex-Test
 services:
   mosquitto:
     image: eclipse-mosquitto:latest
@@ -15,11 +16,11 @@ services:
     image: nodered/node-red:latest
     container_name: nodered
     restart: unless-stopped
-    depends_on:
-      - mosquitto
     ports:
       - "1880:1880"
     environment:
       - TZ=Europe/Berlin
     volumes:
       - ./nodered/data:/data
+    depends_on:
+      - mosquitto      
