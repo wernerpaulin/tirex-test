@@ -140,8 +140,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
-        "y": 60,
+        "x": 1030,
+        "y": 40,
         "wires": []
     },
     {
@@ -158,8 +158,8 @@
         "correl": "",
         "expiry": "",
         "broker": "e51b567d9b9f5836",
-        "x": 1080,
-        "y": 360,
+        "x": 1460,
+        "y": 380,
         "wires": []
     },
     {
@@ -175,8 +175,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 670,
-        "y": 60,
+        "x": 830,
+        "y": 40,
         "wires": [
             [
                 "440de7626385e463"
@@ -196,8 +196,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1350,
-        "y": 360,
+        "x": 1450,
+        "y": 460,
         "wires": [
             [
                 "8765e5bda6216916"
@@ -220,31 +220,11 @@
         "strings": true,
         "include_empty_strings": "",
         "include_null_values": "",
-        "x": 330,
-        "y": 280,
+        "x": 230,
+        "y": 360,
         "wires": [
             [
-                "0e58590a2a3ae7b8"
-            ]
-        ]
-    },
-    {
-        "id": "da482b41d6658a08",
-        "type": "file in",
-        "z": "9f842c3bab9bc650",
-        "name": "",
-        "filename": "/data-to-forecast/air_passengers.csv",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 430,
-        "y": 220,
-        "wires": [
-            [
-                "327760c5ebb3c3da"
+                "14025c72819d922b"
             ]
         ]
     },
@@ -253,11 +233,11 @@
         "type": "ui-button",
         "z": "9f842c3bab9bc650",
         "group": "7a26dd4051bbd389",
-        "name": "Start Forecast",
-        "label": "Start Forecast",
-        "order": 3,
-        "width": 0,
-        "height": 0,
+        "name": "Update Forecast",
+        "label": "Update Forecast",
+        "order": 4,
+        "width": "1",
+        "height": "1",
         "emulateClick": false,
         "tooltip": "",
         "color": "",
@@ -265,8 +245,8 @@
         "className": "",
         "icon": "",
         "iconPosition": "left",
-        "payload": "",
-        "payloadType": "str",
+        "payload": "file_content",
+        "payloadType": "flow",
         "topic": "topic",
         "topicType": "msg",
         "buttonColor": "",
@@ -279,11 +259,11 @@
         "enablePointerup": false,
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
-        "x": 100,
-        "y": 220,
+        "x": 530,
+        "y": 240,
         "wires": [
             [
-                "da482b41d6658a08"
+                "0e58590a2a3ae7b8"
             ]
         ]
     },
@@ -314,8 +294,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": false,
-        "x": 110,
-        "y": 60,
+        "x": 270,
+        "y": 40,
         "wires": [
             [
                 "adacf2834e36fd0e"
@@ -329,7 +309,7 @@
         "group": "7a26dd4051bbd389",
         "name": "Time Series Plot",
         "label": "Time Series Plot",
-        "order": 4,
+        "order": 5,
         "chartType": "line",
         "category": "topic",
         "categoryType": "msg",
@@ -378,8 +358,8 @@
         "height": 8,
         "className": "",
         "interpolation": "linear",
-        "x": 1880,
-        "y": 420,
+        "x": 2000,
+        "y": 320,
         "wires": [
             []
         ]
@@ -403,8 +383,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 60,
+        "x": 550,
+        "y": 40,
         "wires": [
             []
         ]
@@ -421,8 +401,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1610,
-        "y": 360,
+        "x": 1730,
+        "y": 460,
         "wires": [
             [
                 "7bc683a69ebbc023"
@@ -448,26 +428,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 740,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7793e50103d6c5a6",
-        "type": "function",
-        "z": "9f842c3bab9bc650",
-        "name": "prepare context data for plotting",
-        "func": "let context_data = msg.payload.context\n\n// payload is your JSON with mean: [[...]]\nconst series = (context_data && context_data[0]) ? context_data[0] : [];\nconst points = series.map((y, i) => ({ x: i, y: Number(y) }));\n\nmsg.topic = \"Given Context\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"replace\"\nreturn msg;\n",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1110,
-        "y": 440,
+        "x": 1120,
+        "y": 320,
         "wires": [
             []
         ]
@@ -484,8 +446,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 340,
+        "x": 810,
+        "y": 360,
         "wires": [
             [
                 "868b2eaf5dd93f84",
@@ -505,12 +467,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 360,
+        "x": 1140,
+        "y": 380,
         "wires": [
             [
                 "a950ed3648b53947",
-                "7793e50103d6c5a6",
                 "766a2db7a7eef21c"
             ]
         ]
@@ -534,8 +495,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 390,
-        "y": 120,
+        "x": 550,
+        "y": 100,
         "wires": [
             []
         ]
@@ -567,8 +528,8 @@
         "colorTrack": "",
         "colorThumb": "",
         "showTextField": false,
-        "x": 120,
-        "y": 120,
+        "x": 280,
+        "y": 100,
         "wires": [
             [
                 "650313665ec6a9cf"
@@ -587,11 +548,131 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 520,
+        "x": 1510,
+        "y": 320,
         "wires": [
             [
                 "7bc683a69ebbc023"
+            ]
+        ]
+    },
+    {
+        "id": "c66e39f78c1e8b07",
+        "type": "ui-file-input",
+        "z": "9f842c3bab9bc650",
+        "group": "7a26dd4051bbd389",
+        "name": "Load Data Set",
+        "order": 3,
+        "width": "5",
+        "height": "1",
+        "topic": "topic",
+        "topicType": "msg",
+        "label": "File Input",
+        "icon": "paperclip",
+        "allowMultiple": false,
+        "accept": "",
+        "className": "",
+        "x": 260,
+        "y": 240,
+        "wires": [
+            [
+                "7e073c33149d997c"
+            ]
+        ]
+    },
+    {
+        "id": "7e073c33149d997c",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "raw to UTF string",
+        "func": "if (Buffer.isBuffer(msg.payload)) {\n  // single file as Buffer\n  msg.payload = msg.payload.toString('utf8');\n} else if (Array.isArray(msg.payload) && msg.payload.every(Buffer.isBuffer)) {\n  // multiple files -> join them (or handle separately)\n  msg.payload = msg.payload.map(b => b.toString('utf8')).join('\\n');\n} else if (msg.payload && msg.payload.buffer && Buffer.isBuffer(msg.payload.buffer)) {\n  // some nodes wrap it like { buffer, filename, mimetype }\n  msg.payload = msg.payload.buffer.toString('utf8');\n}\n// now it's a UTF-8 string\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "327760c5ebb3c3da"
+            ]
+        ]
+    },
+    {
+        "id": "da482b41d6658a08",
+        "type": "file in",
+        "z": "9f842c3bab9bc650",
+        "name": "Default data",
+        "filename": "/data-to-forecast/air_passengers.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 250,
+        "y": 460,
+        "wires": [
+            [
+                "327760c5ebb3c3da"
+            ]
+        ]
+    },
+    {
+        "id": "14025c72819d922b",
+        "type": "change",
+        "z": "9f842c3bab9bc650",
+        "name": "save file content on update",
+        "rules": [
+            {
+                "t": "set",
+                "p": "file_content",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "0e58590a2a3ae7b8"
+            ]
+        ]
+    },
+    {
+        "id": "0dfd74adcee639fb",
+        "type": "inject",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 520,
+        "wires": [
+            [
+                "da482b41d6658a08"
             ]
         ]
     }
