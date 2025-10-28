@@ -1,4 +1,3 @@
-version: '3'
 name: TiRex-Test
 services:
   mosquitto:
@@ -22,5 +21,22 @@ services:
       - TZ=Europe/Berlin
     volumes:
       - ./nodered/data:/data
+      - ./data-to-forecast:/data-to-forecast:ro
     depends_on:
       - mosquitto
+
+
+  tirex:
+    #https://github.com/NX-AI/tirex/tree/main/inference
+    image: ghcr.io/nx-ai/tirex-cpu:latest
+    container_name: tirex-cpu.tirex-test
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MQTT_ENABLED=1
+      - MQTT_BROKER_HOST=mosquitto.tirex-test
+      - MQTT_BROKER_PORT=1883
+
+
+

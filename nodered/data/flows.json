@@ -2,7 +2,7 @@
     {
         "id": "9f842c3bab9bc650",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "TiRex Test",
         "disabled": false,
         "info": "",
         "env": []
@@ -39,48 +39,109 @@
         "sessionExpiry": ""
     },
     {
-        "id": "7470705302c36e10",
-        "type": "inject",
-        "z": "9f842c3bab9bc650",
-        "name": "",
-        "props": [
+        "id": "ad016dbdcbc0fd06",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "0259b72f323e51d0",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "2e7f5c35d80f0453",
+        "type": "ui-page",
+        "name": "TiRex Node-RED Demo",
+        "ui": "ad016dbdcbc0fd06",
+        "path": "/tirex-demo",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "0259b72f323e51d0",
+        "breakpoints": [
             {
-                "p": "payload"
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
             },
             {
-                "p": "topic",
-                "vt": "str"
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
             }
         ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 160,
-        "wires": [
-            [
-                "a950ed3648b53947"
-            ]
-        ]
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "7a26dd4051bbd389",
+        "type": "ui-group",
+        "name": "Time Series Forecasting",
+        "page": "2e7f5c35d80f0453",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
     },
     {
         "id": "440de7626385e463",
         "type": "debug",
         "z": "9f842c3bab9bc650",
-        "name": "debug 1",
+        "name": "TiRex Errors",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 200,
+        "x": 1350,
+        "y": 440,
         "wires": []
     },
     {
@@ -88,7 +149,7 @@
         "type": "mqtt out",
         "z": "9f842c3bab9bc650",
         "name": "",
-        "topic": "test",
+        "topic": "tirex/forecast/request",
         "qos": "",
         "retain": "",
         "respTopic": "",
@@ -97,8 +158,8 @@
         "correl": "",
         "expiry": "",
         "broker": "e51b567d9b9f5836",
-        "x": 490,
-        "y": 160,
+        "x": 1160,
+        "y": 220,
         "wires": []
     },
     {
@@ -106,7 +167,7 @@
         "type": "mqtt in",
         "z": "9f842c3bab9bc650",
         "name": "",
-        "topic": "#",
+        "topic": "tirex/forecast/error",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "e51b567d9b9f5836",
@@ -114,11 +175,324 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 570,
-        "y": 300,
+        "x": 1150,
+        "y": 440,
         "wires": [
             [
                 "440de7626385e463"
+            ]
+        ]
+    },
+    {
+        "id": "d4c36f0c4439be53",
+        "type": "mqtt in",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "topic": "tirex/forecast/result",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e51b567d9b9f5836",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1430,
+        "y": 220,
+        "wires": [
+            [
+                "8765e5bda6216916"
+            ]
+        ]
+    },
+    {
+        "id": "327760c5ebb3c3da",
+        "type": "csv",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "bdf5c770245539ed"
+            ]
+        ]
+    },
+    {
+        "id": "da482b41d6658a08",
+        "type": "file in",
+        "z": "9f842c3bab9bc650",
+        "name": "",
+        "filename": "/data-to-forecast/air_passengers.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "327760c5ebb3c3da"
+            ]
+        ]
+    },
+    {
+        "id": "bdf5c770245539ed",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "convert to TiRex input format",
+        "func": "let forecast = {}\nlet id = \"demo_context\"\n\n// get the latest slider value (fallback to 1 if unset)\nlet prediction_length = flow.get('prediction_length');\nprediction_length = Number.isInteger(prediction_length) ? prediction_length : 4;\n\n\nconst context_csv = msg.payload\n\n\n// msg.payload is like: [{col1:112},{col1:118},...]\nconst context_data = context_csv.map((row) => Number(row.col1));\n\nforecast = {\n    id: id,\n    context: [context_data], //TiRex wants a nested array\n    prediction_length: prediction_length\n};\n\nmsg.payload = forecast\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 220,
+        "wires": [
+            [
+                "a950ed3648b53947",
+                "868b2eaf5dd93f84",
+                "7793e50103d6c5a6"
+            ]
+        ]
+    },
+    {
+        "id": "e0f89d50a66d6b8b",
+        "type": "ui-button",
+        "z": "9f842c3bab9bc650",
+        "group": "7a26dd4051bbd389",
+        "name": "Start Forecast",
+        "label": "Start Forecast",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 100,
+        "y": 220,
+        "wires": [
+            [
+                "da482b41d6658a08"
+            ]
+        ]
+    },
+    {
+        "id": "2adb98c0fd390862",
+        "type": "ui-slider",
+        "z": "9f842c3bab9bc650",
+        "group": "7a26dd4051bbd389",
+        "name": "Prediction Length",
+        "label": "Prediction Length",
+        "tooltip": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "1",
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "adacf2834e36fd0e"
+            ]
+        ]
+    },
+    {
+        "id": "7bc683a69ebbc023",
+        "type": "ui-chart",
+        "z": "9f842c3bab9bc650",
+        "group": "7a26dd4051bbd389",
+        "name": "Time Series Plot",
+        "label": "Time Series Plot",
+        "order": 3,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Samples",
+        "xAxisProperty": "x",
+        "xAxisPropertyType": "property",
+        "xAxisType": "linear",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Values",
+        "yAxisProperty": "y",
+        "yAxisPropertyType": "property",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "1000",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1960,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "adacf2834e36fd0e",
+        "type": "change",
+        "z": "9f842c3bab9bc650",
+        "name": "save changes on update",
+        "rules": [
+            {
+                "t": "set",
+                "p": "prediction_length",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8765e5bda6216916",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "extract mean values for plotting",
+        "func": "// get context used for forecast\nlet context_data = flow.get('context_data');\n\nlet yOffset = (context_data[0] || []).length; \n\n\n// payload is your JSON with mean: [[...]]\nconst series = (msg.payload.mean && msg.payload.mean[0]) ? msg.payload.mean[0] : [];\nconst points = series.map((y, i) => ({ x: i+yOffset, y: Number(y) }));\n\nmsg.topic = \"Forecast Mean\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"append\"      //forecast is always last: set to append\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 220,
+        "wires": [
+            [
+                "7bc683a69ebbc023"
+            ]
+        ]
+    },
+    {
+        "id": "868b2eaf5dd93f84",
+        "type": "change",
+        "z": "9f842c3bab9bc650",
+        "name": "save context data for plotting",
+        "rules": [
+            {
+                "t": "set",
+                "p": "context_data",
+                "pt": "flow",
+                "to": "payload.context",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7793e50103d6c5a6",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "prepare context data for plotting",
+        "func": "let context_data = msg.payload.context\n\n// payload is your JSON with mean: [[...]]\nconst series = (context_data && context_data[0]) ? context_data[0] : [];\nconst points = series.map((y, i) => ({ x: i, y: Number(y) }));\n\nmsg.topic = \"Context\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"replace\"      //context is always first: set to replace old data\nreturn msg;\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 300,
+        "wires": [
+            [
+                "7bc683a69ebbc023"
             ]
         ]
     }
