@@ -570,7 +570,7 @@
         "label": "File Input",
         "icon": "paperclip",
         "allowMultiple": false,
-        "accept": ".csv",
+        "accept": "",
         "className": "",
         "x": 260,
         "y": 240,
