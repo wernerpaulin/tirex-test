@@ -140,8 +140,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1350,
-        "y": 440,
+        "x": 870,
+        "y": 60,
         "wires": []
     },
     {
@@ -158,8 +158,8 @@
         "correl": "",
         "expiry": "",
         "broker": "e51b567d9b9f5836",
-        "x": 1160,
-        "y": 220,
+        "x": 1080,
+        "y": 360,
         "wires": []
     },
     {
@@ -175,8 +175,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1150,
-        "y": 440,
+        "x": 670,
+        "y": 60,
         "wires": [
             [
                 "440de7626385e463"
@@ -196,8 +196,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 1430,
-        "y": 220,
+        "x": 1350,
+        "y": 360,
         "wires": [
             [
                 "8765e5bda6216916"
@@ -220,11 +220,11 @@
         "strings": true,
         "include_empty_strings": "",
         "include_null_values": "",
-        "x": 670,
-        "y": 220,
+        "x": 330,
+        "y": 280,
         "wires": [
             [
-                "bdf5c770245539ed"
+                "0e58590a2a3ae7b8"
             ]
         ]
     },
@@ -240,33 +240,11 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 410,
+        "x": 430,
         "y": 220,
         "wires": [
             [
                 "327760c5ebb3c3da"
-            ]
-        ]
-    },
-    {
-        "id": "bdf5c770245539ed",
-        "type": "function",
-        "z": "9f842c3bab9bc650",
-        "name": "convert to TiRex input format",
-        "func": "let forecast = {}\nlet id = \"demo_context\"\n\n// get the latest slider value (fallback to 1 if unset)\nlet prediction_length = flow.get('prediction_length');\nprediction_length = Number.isInteger(prediction_length) ? prediction_length : 4;\n\n\nconst context_csv = msg.payload\n\n\n// msg.payload is like: [{col1:112},{col1:118},...]\nconst context_data = context_csv.map((row) => Number(row.col1));\n\nforecast = {\n    id: id,\n    context: [context_data], //TiRex wants a nested array\n    prediction_length: prediction_length\n};\n\nmsg.payload = forecast\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 880,
-        "y": 220,
-        "wires": [
-            [
-                "a950ed3648b53947",
-                "868b2eaf5dd93f84",
-                "7793e50103d6c5a6"
             ]
         ]
     },
@@ -277,7 +255,7 @@
         "group": "7a26dd4051bbd389",
         "name": "Start Forecast",
         "label": "Start Forecast",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "emulateClick": false,
@@ -324,7 +302,7 @@
         "outs": "end",
         "topic": "topic",
         "topicType": "msg",
-        "thumbLabel": "true",
+        "thumbLabel": "always",
         "showTicks": "always",
         "min": "1",
         "max": "100",
@@ -337,7 +315,7 @@
         "colorThumb": "",
         "showTextField": false,
         "x": 110,
-        "y": 280,
+        "y": 60,
         "wires": [
             [
                 "adacf2834e36fd0e"
@@ -351,7 +329,7 @@
         "group": "7a26dd4051bbd389",
         "name": "Time Series Plot",
         "label": "Time Series Plot",
-        "order": 3,
+        "order": 4,
         "chartType": "line",
         "category": "topic",
         "categoryType": "msg",
@@ -380,8 +358,8 @@
         "colors": [
             "#0095ff",
             "#ff0000",
-            "#ff7f0e",
             "#2ca02c",
+            "#2c5ea0",
             "#a347e1",
             "#d62728",
             "#ff9896",
@@ -400,8 +378,8 @@
         "height": 8,
         "className": "",
         "interpolation": "linear",
-        "x": 1960,
-        "y": 300,
+        "x": 1880,
+        "y": 420,
         "wires": [
             []
         ]
@@ -425,8 +403,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 280,
+        "x": 390,
+        "y": 60,
         "wires": [
             []
         ]
@@ -435,16 +413,16 @@
         "id": "8765e5bda6216916",
         "type": "function",
         "z": "9f842c3bab9bc650",
-        "name": "extract mean values for plotting",
-        "func": "// get context used for forecast\nlet context_data = flow.get('context_data');\n\nlet yOffset = (context_data[0] || []).length; \n\n\n// payload is your JSON with mean: [[...]]\nconst series = (msg.payload.mean && msg.payload.mean[0]) ? msg.payload.mean[0] : [];\nconst points = series.map((y, i) => ({ x: i+yOffset, y: Number(y) }));\n\nmsg.topic = \"Forecast Mean\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"append\"      //forecast is always last: set to append\nreturn msg;\n",
+        "name": "prepare mean values for plotting",
+        "func": "// get context used for forecast\nlet context_data = flow.get('context_data_full');\n\n// get the latest slider value (fallback to 0 if unset)\nlet prediction_start_offset = flow.get('prediction_start_offset');\nprediction_start_offset = Number.isInteger(prediction_start_offset) ? prediction_start_offset : 0;\n\n\nlet yOffset = context_data.length + prediction_start_offset; \n\n\n// payload is your JSON with mean: [[...]]\nconst series = (msg.payload.mean && msg.payload.mean[0]) ? msg.payload.mean[0] : [];\nconst points = series.map((y, i) => ({ x: i+yOffset, y: Number(y) }));\n\nmsg.topic = \"Forecast Mean\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"append\"\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1670,
-        "y": 220,
+        "x": 1610,
+        "y": 360,
         "wires": [
             [
                 "7bc683a69ebbc023"
@@ -455,13 +433,13 @@
         "id": "868b2eaf5dd93f84",
         "type": "change",
         "z": "9f842c3bab9bc650",
-        "name": "save context data for plotting",
+        "name": "save orig context data",
         "rules": [
             {
                 "t": "set",
-                "p": "context_data",
+                "p": "context_data_full",
                 "pt": "flow",
-                "to": "payload.context",
+                "to": "payload",
                 "tot": "msg"
             }
         ],
@@ -470,8 +448,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1180,
-        "y": 140,
+        "x": 740,
+        "y": 280,
         "wires": [
             []
         ]
@@ -481,15 +459,136 @@
         "type": "function",
         "z": "9f842c3bab9bc650",
         "name": "prepare context data for plotting",
-        "func": "let context_data = msg.payload.context\n\n// payload is your JSON with mean: [[...]]\nconst series = (context_data && context_data[0]) ? context_data[0] : [];\nconst points = series.map((y, i) => ({ x: i, y: Number(y) }));\n\nmsg.topic = \"Context\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"replace\"      //context is always first: set to replace old data\nreturn msg;\n\n\n\nreturn msg;",
+        "func": "let context_data = msg.payload.context\n\n// payload is your JSON with mean: [[...]]\nconst series = (context_data && context_data[0]) ? context_data[0] : [];\nconst points = series.map((y, i) => ({ x: i, y: Number(y) }));\n\nmsg.topic = \"Given Context\";\nmsg.payload = points;       // array of {x,y}\nmsg.action = \"replace\"\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1190,
-        "y": 300,
+        "x": 1110,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e58590a2a3ae7b8",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "convert into time series format",
+        "func": "const context_csv = msg.payload\n\n// msg.payload is like: [{col1:112},{col1:118},...]\nconst context_data = context_csv.map((row) => Number(row.col1));\n\nmsg.payload = context_data\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "868b2eaf5dd93f84",
+                "79011f5a55e4cf35"
+            ]
+        ]
+    },
+    {
+        "id": "79011f5a55e4cf35",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "prepare TiRex input format",
+        "func": "let forecast = {}\nlet id = \"demo_context\"\n\n// get the latest slider value (fallback to 1 if unset)\nlet prediction_length = flow.get('prediction_length');\nprediction_length = Number.isInteger(prediction_length) ? prediction_length : 1;\n\n// get the latest slider value (fallback to 0 if unset)\nlet prediction_start_offset = flow.get('prediction_start_offset');\nprediction_start_offset = Number.isInteger(prediction_start_offset) ? prediction_start_offset : 0;\n\n\nconst context_data = msg.payload\n\n// removes context from the end to show prediction accuracy\nconst len = context_data.length;\nconst off = Number(prediction_start_offset) || 0;\n\nconst start = off > 0 ? Math.min(off, len) : 0;\nconst end   = off < 0 ? Math.max(0, len - Math.abs(off)) : len;\n\nconst trimmed_context_data = context_data.slice(start, end);\n\nforecast = {\n    id: id,\n    context: [trimmed_context_data], //TiRex wants a nested array\n    prediction_length: prediction_length\n};\n\nmsg.payload = forecast\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 360,
+        "wires": [
+            [
+                "a950ed3648b53947",
+                "7793e50103d6c5a6",
+                "766a2db7a7eef21c"
+            ]
+        ]
+    },
+    {
+        "id": "650313665ec6a9cf",
+        "type": "change",
+        "z": "9f842c3bab9bc650",
+        "name": "save changes on update",
+        "rules": [
+            {
+                "t": "set",
+                "p": "prediction_start_offset",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e52a8257eb6d1565",
+        "type": "ui-slider",
+        "z": "9f842c3bab9bc650",
+        "group": "7a26dd4051bbd389",
+        "name": "Prediction Start Offset",
+        "label": "Prediction Start Offset",
+        "tooltip": "",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "always",
+        "showTicks": "always",
+        "min": "-100",
+        "max": "0",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "650313665ec6a9cf"
+            ]
+        ]
+    },
+    {
+        "id": "766a2db7a7eef21c",
+        "type": "function",
+        "z": "9f842c3bab9bc650",
+        "name": "prepare ground truth data for plotting",
+        "func": "// get full context \nlet context_data_full = flow.get('context_data_full');\n\ncontext_data_full = [context_data_full]     //convert to TiRex format\n\n// get the latest slider value (fallback to 0 if unset)\nlet prediction_start_offset = flow.get('prediction_start_offset');\nprediction_start_offset = Number.isInteger(prediction_start_offset) ? prediction_start_offset : 0;\n\n// removes context from the end to show prediction accuracy\nconst offset = Math.abs(Number(prediction_start_offset) || 0);\nconst len = context_data_full.length;\n\nconst start_ground_truth_index = offset > 0 ? Math.max(0, len - offset) : 0;\n\nconst context_data_ground_truth = context_data_full.slice(start_ground_truth_index);\n\n\n// payload is your JSON with mean: [[...]]\nconst series = (context_data_ground_truth && context_data_ground_truth[0]) ? context_data_ground_truth[0] : [];\nconst points = series.map((y, i) => ({ x: i + start_ground_truth_index, y: Number(y) }));\n\nmsg.topic = \"Ground Truth\";\nmsg.payload = points;       // array of {x,y}\n//msg.action = \"append\"\nmsg.action = \"replace\"\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 520,
         "wires": [
             [
                 "7bc683a69ebbc023"
