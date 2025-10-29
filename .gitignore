@@ -1,0 +1,21 @@
+# Ignore database and log files
+*.db
+*.log
+
+# Common variants and locations
+**/*.db
+**/*.log
+
+# Node-RED runtime data
+data/*.db
+data/*.log
+data/*.log.*
+
+# Mosquitto persistence
+mosquitto/data/*.db
+mosquitto/log/*.log
+
+# Optional: ignore temporary/backup files
+*.tmp
+*.bak
+*.swp
