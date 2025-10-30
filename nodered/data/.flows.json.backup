@@ -283,9 +283,9 @@
         "topic": "topic",
         "topicType": "msg",
         "thumbLabel": "always",
-        "showTicks": "always",
+        "showTicks": "false",
         "min": "1",
-        "max": "100",
+        "max": "1000",
         "step": 1,
         "className": "",
         "iconPrepend": "",
@@ -517,8 +517,8 @@
         "topic": "topic",
         "topicType": "msg",
         "thumbLabel": "always",
-        "showTicks": "always",
-        "min": "-100",
+        "showTicks": "false",
+        "min": "-1000",
         "max": "0",
         "step": 1,
         "className": "",
@@ -651,7 +651,7 @@
         "id": "0dfd74adcee639fb",
         "type": "inject",
         "z": "9f842c3bab9bc650",
-        "name": "",
+        "name": "On start load default data",
         "props": [
             {
                 "p": "payload"
@@ -668,7 +668,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 250,
+        "x": 290,
         "y": 520,
         "wires": [
             [
