@@ -116,7 +116,7 @@
     {
         "id": "7a26dd4051bbd389",
         "type": "ui-group",
-        "name": "Time Series Forecasting",
+        "name": "TiRex: Zero-Shot Forecasting",
         "page": "2e7f5c35d80f0453",
         "width": 6,
         "height": 1,
@@ -334,7 +334,7 @@
         "showLegend": true,
         "removeOlder": 1,
         "removeOlderUnit": "3600",
-        "removeOlderPoints": "1000",
+        "removeOlderPoints": "500",
         "colors": [
             "#0095ff",
             "#ff0000",
