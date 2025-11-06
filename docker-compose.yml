@@ -28,7 +28,7 @@ services:
 
   tirex:
     #https://github.com/NX-AI/tirex/tree/main/inference
-    image: ghcr.io/nx-ai/tirex-cpu:latest
+    image: ghcr.io/nx-ai/tirex-cpu:1.1.1
     container_name: tirex-cpu.tirex-test
     restart: unless-stopped
     ports:

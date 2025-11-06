@@ -643,3 +643,35 @@
 1761827009: Client nodereddf7d401f35670e0d disconnected.
 1761827009: New connection from 172.18.0.4:49362 on port 1883.
 1761827009: New client connected from 172.18.0.4:49362 as nodered6e9d321a70b77cdb (p2, c1, k60).
+1761828517: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1761830318: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1761830409: Client nodered6e9d321a70b77cdb disconnected.
+1761830409: mosquitto version 2.0.22 terminating
+1761830409: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1761903732: mosquitto version 2.0.22 starting
+1761903732: Config loaded from /mosquitto/config/mosquitto.conf.
+1761903732: Opening ipv4 listen socket on port 1883.
+1761903732: Opening ipv6 listen socket on port 1883.
+1761903732: mosquitto version 2.0.22 running
+1761903733: New connection from 172.18.0.3:33569 on port 1883.
+1761903733: New client connected from 172.18.0.3:33569 as auto-A5B908AE-C93F-7558-875D-0E8551298D05 (p2, c1, k60).
+1761903733: New connection from 172.18.0.4:44378 on port 1883.
+1761903733: New client connected from 172.18.0.4:44378 as nodered596e0c808c803540 (p2, c1, k60).
+1761904681: Client nodered596e0c808c803540 disconnected.
+1761904681: New connection from 172.18.0.4:56656 on port 1883.
+1761904681: New client connected from 172.18.0.4:56656 as nodered6d46350ef5600ac2 (p2, c1, k60).
+1761904776: Client nodered6d46350ef5600ac2 disconnected.
+1761904776: mosquitto version 2.0.22 terminating
+1761904776: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1761906024: mosquitto version 2.0.22 starting
+1761906024: Config loaded from /mosquitto/config/mosquitto.conf.
+1761906024: Opening ipv4 listen socket on port 1883.
+1761906024: Opening ipv6 listen socket on port 1883.
+1761906024: mosquitto version 2.0.22 running
+1761906025: New connection from 172.18.0.2:55525 on port 1883.
+1761906025: New client connected from 172.18.0.2:55525 as auto-8C20DC35-B104-A48F-2347-55DF27637448 (p2, c1, k60).
+1761906025: New connection from 172.18.0.4:35830 on port 1883.
+1761906025: New client connected from 172.18.0.4:35830 as nodered7dcac3436fc9c234 (p2, c1, k60).
+1761906710: Client nodered7dcac3436fc9c234 disconnected.
+1761906710: mosquitto version 2.0.22 terminating
+1761906710: Saving in-memory database to /mosquitto/data//mosquitto.db.

@@ -334,7 +334,7 @@
         "showLegend": true,
         "removeOlder": 1,
         "removeOlderUnit": "3600",
-        "removeOlderPoints": "1000",
+        "removeOlderPoints": "500",
         "colors": [
             "#0095ff",
             "#ff0000",
